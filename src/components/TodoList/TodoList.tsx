@@ -1,6 +1,11 @@
 import React from 'react';
+import { TodoListProps } from '../../types/TodoListProps';
 
-export const TodoList: React.FC = () => (
+export const TodoList: React.FC<TodoListProps> = ({
+  todos,
+  selectedTodoId,
+  onTodoSelect,
+}) => (
   <table className="table is-narrow is-fullwidth">
     <thead>
       <tr>
@@ -16,6 +21,57 @@ export const TodoList: React.FC = () => (
     </thead>
 
     <tbody>
+      {todos.map(todo => (
+        <tr
+          key={todo.id}
+          data-cy="todo"
+          className={
+            selectedTodoId === todo.id ? 'has-background-info-light' : ''
+          }
+        >
+          <td className="is-vcentered">{todo.id}</td>
+          <td className="is-vcentered">
+            {todo.completed && (
+              <span className="icon" data-cy="iconCompleted">
+                <i className="fas fa-check" />
+              </span>
+            )}
+          </td>
+          <td className="is-vcentered is-expanded">
+            <p
+              className={
+                todo.completed ? 'has-text-success' : 'has-text-danger'
+              }
+            >
+              {todo.title}
+            </p>
+          </td>
+          <td className="has-text-right is-vcentered">
+            <button
+              data-cy="selectButton"
+              className="button"
+              type="button"
+              onClick={() => onTodoSelect(todo)}
+            >
+              <span className="icon">
+                <i
+                  className={
+                    selectedTodoId === todo.id
+                      ? 'far fa-eye-slash'
+                      : 'far fa-eye'
+                  }
+                />
+              </span>
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
+
+/*
+<tbody>
       <tr data-cy="todo" className="">
         <td className="is-vcentered">1</td>
         <td className="is-vcentered" />
@@ -96,5 +152,4 @@ export const TodoList: React.FC = () => (
         </td>
       </tr>
     </tbody>
-  </table>
-);
+*/
