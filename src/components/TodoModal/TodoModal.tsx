@@ -1,6 +1,7 @@
 import React from 'react';
 import { Loader } from '../Loader';
 import { TodoModalProps } from '../../types/TodoModalProps';
+import cn from 'classnames';
 
 export const TodoModal: React.FC<TodoModalProps> = ({
   todo,
@@ -45,9 +46,10 @@ export const TodoModal: React.FC<TodoModalProps> = ({
             <p className="block" data-cy="modal-user">
               {/* <strong className="has-text-success">Done</strong> */}
               <strong
-                className={
-                  todo.completed ? 'has-text-succes' : 'has-text-danger'
-                }
+                className={cn({
+                  'has-text-success': todo.completed,
+                  'has-text-danger': !todo.completed,
+                })}
               >
                 {todo.completed ? 'Done' : 'Planned'}
               </strong>

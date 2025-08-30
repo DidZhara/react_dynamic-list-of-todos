@@ -29,7 +29,7 @@ export const App: React.FC = () => {
         setTodos(todosData);
       })
       .catch(() => {
-        setErrorMessage('Error loading user');
+        setErrorMessage('Error loading todos');
       })
       .finally(() => {
         setIsLoadingTodos(false);
